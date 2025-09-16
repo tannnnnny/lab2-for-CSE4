@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bug Tracker</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #dce3eb;
+        }
+
+        nav {
+            background: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav button {
+            background: #555;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        nav button:hover {
+            background: #777;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* ==== СТИЛІ ДЛЯ LOGIN ==== */
+        .login-window {
+            width: 420px;
+            border: 2px solid #000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 50px auto;
+            background: linear-gradient(#1a1a1a, #e0e0e0);
+            padding: 20px;
+        }
+
+        .login-window h1 {
+            font-family: 'Impact', sans-serif;
+            font-size: 26px;
+            color: #fff;
+            margin: 0 0 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .powered {
+            font-size: 12px;
+            color: #fff;
+            text-align: center;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .login-window label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .login-window input[type="text"],
+        .login-window input[type="password"] {
+            width: 95%;
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .checkbox {
+            margin: 10px 0;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .login-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .login-buttons button {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-buttons button:hover {
+            background: #555;
+        }
+
+        .logo {
+            margin-top: 15px;
+            font-size: 10px;
+            color: #fff;
+            border: 1px solid #00e0ff;
+            display: inline-block;
+            padding: 8px 12px;
+        }
+
+        /* ==== СТИЛІ ДЛЯ CREATE REPORT ==== */
+        .report-window {
+            width: 950px;
+            border: 1px solid #000;
+            box-shadow: 0 0 5px #333;
+            margin: 20px auto;
+        }
+
+        .titlebar {
+            background: linear-gradient(to right, #c7c7c7, #7a7a7a);
+            color: white;
+            padding: 5px;
+            font-weight: bold;
+        }
+
+        .content {
+            background: linear-gradient(to bottom, #fff, #ddd, #000);
+            padding: 10px;
+            color: black;
+        }
+
+        .tabs {
+            margin: 15px 0;
+        }
+
+        .tabs button {
+            padding: 5px 15px;
+            margin-right: 5px;
+            border: 1px solid #333;
+            background: #eee;
+            cursor: pointer;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 220px 220px 1fr;
+            grid-gap: 10px 15px;
+            align-items: start;
+        }
+
+        .form-grid label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .form-grid input,
+        .form-grid select,
+        .form-grid textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #333;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .description {
+            grid-column: 3 / 4;
+            grid-row: 1 / 9;
+        }
+
+        .description textarea {
+            height: 330px;
+        }
+
+        .buttons {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .buttons button {
+            padding: 7px 20px;
+            margin-left: 10px;
+            background: #444;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px #000;
+        }
+
+        .buttons button:hover {
+            background: #666;
+        }
+
+        .split {
+            display: flex;
+            gap: 10px;
+        }
+
+        .split textarea,
+        .split .comments-box {
+            height: 300px;
+        }
+
+        .comments-box {
+            border: 1px solid #333;
+            background: #fff;
+        }
+
+        /* ==== СТИЛІ ДЛЯ REMOVE USER ==== */
+        .remove-window {
+            width: 450px;
+            margin: 60px auto;
+            border: 2px solid #000;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .remove-titlebar {
+            background: #c0c8d2;
+            padding: 4px 10px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .remove-content {
+            background: linear-gradient(#444, #ccc);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .remove-content label {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .remove-content select {
+            padding: 3px;
+            font-size: 14px;
+        }
+
+        .remove-content button {
+            background: linear-gradient(#333, #111);
+            color: white;
+            border: 1px solid #666;
+            padding: 6px 14px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .remove-content button:hover {
+            background: linear-gradient(#555, #222);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <button onclick="showPage('login')">Login</button>
+        <button onclick="showPage('report')">Create Report</button>
+        <button onclick="showPage('remove')">Remove User</button>
+    </nav>
+
+    <!-- LOGIN -->
+    <div id="login" class="page active">
+        <div class="login-window">
+            <h1>Bug Tracker</h1>
+            <div class="powered">powered by QA Start Up</div>
+            <label for="username">User Name:</label>
+            <input type="text" id="username" value="TestAdmin">
+            <label for="password">Password:</label>
+            <input type="password" id="password" value="Password1@">
+            <div class="checkbox">
+                <input type="checkbox" id="remember"> Keep me signed in
+            </div>
+            <div class="logo">QA. START UP</div>
+            <div class="login-buttons">
+                <button>Login</button>
+                <button>Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE REPORT -->
+    <div id="report" class="page">
+        <div class="report-window">
+            <div class="titlebar">Create Report</div>
+            <div class="content">
+                <div class="form-row">
+                    <label>* Summary</label>
+                    <input type="text" style="width: 90%;">
+                </div>
+                <div class="tabs">
+                    <button onclick="showTab('details')">Details</button>
+                    <button onclick="showTab('comments')">Comments</button>
+                </div>
+                <div id="details" class="tab-content">
+                    <div class="form-grid">
+                        <div><label>* Project</label><select></select></div>
+                        <div><label>Reporter</label><input type="text" value="Test4Admin"></div>
+                        <div><label>* Issue Type</label><select></select></div>
+                        <div><label>* Assignee</label><select></select></div>
+                        <div><label>* Priority</label><select></select></div>
+                        <div><label>* Severity</label><select></select></div>
+                        <div><label>Affect Version</label><input type="text"></div>
+                        <div><label>* Environment</label><input type="text"></div>
+                        <div><label>Fix Version</label><input type="text"></div>
+                        <div><label>Status</label><input type="text" value="New"></div>
+                        <div><label>Due Date</label><input type="date"></div>
+                        <div class="description">
+                            <label>Description</label>
+                            <textarea></textarea>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button type="button">Save Report</button>
+                        <button type="button">Close</button>
+                    </div>
+                </div>
+                <div id="comments" class="tab-content" style="display:none;">
+                    <div class="split">
+                        <div style="flex: 1; display: flex; flex-direction: column;">
+                            <label><b>Comment</b></label>
+                            <textarea placeholder="Comment" style="height: 250px;"></textarea>
+                            <div class="buttons" style="text-align: left; margin-top: 10px;">
+                                <button type="button">Add Comment</button>
+                            </div>
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column;">
+                            <label><b>All comments</b></label>
+                            <div class="comments-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REMOVE USER -->
+    <div id="remove" class="page">
+        <div class="remove-window">
+            <div class="remove-titlebar">
+                <span>User selection for removing</span>
+                <span style="color:red; font-weight:bold; cursor:pointer;">X</span>
+            </div>
+            <div class="remove-content">
+                <label for="username">User Name</label>
+                <select id="username">
+                    <option>User1</option>
+                    <option>User2</option>
+                    <option>User3</option>
+                </select>
+                <button onclick="removeAccount()">Remove Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+        function showTab(tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.style.display = "none");
+            document.getElementById(tabId).style.display = "block";
+        }
+        window.onload = () => showTab('details');
+        function removeAccount() {
+            const user = document.getElementById("username").value;
+            alert("Account " + user + " removed!");
+        }
+    </script>
+</body>
+
+</html>
